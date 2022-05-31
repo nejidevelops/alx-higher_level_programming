@@ -6,8 +6,8 @@ if number < 0:
     last_dig = -last_dig
 print("Last digit of {} is {} is".format(number, last_dig), end="")
 if last_dig > 5:
-    print("greater than 5")
-elif last == 0:
-    print("0")
+    print(" greater than 5")
+elif last_dig == 0:
+    print(" 0")
 else:
-    print("less than 6 and not 0")
+    print(" less than 6 and not 0")
