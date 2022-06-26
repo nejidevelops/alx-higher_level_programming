@@ -1,67 +1,110 @@
 The ``0-add_integer`` module
-============================
+======================
 
 Using ``add_integer``
----------------------
+-------------------
 
-This is a test-suite for the ``0-add_integer`` module to test various edge cases of the ``add_integer`` function.
+Importing the function from the module:
+	>>> add_integer = __import__("0-add_integer").add_integer
 
-We'll import the required module:
+Checking for module docstring:
+	 >>> m = __import__("0-add_integer").__doc__
+	 >>> len(m) > 1
+	 True
 
-      >>> add_integer = __import__('0-add_integer').add_integer
+Checking for function docstring:
+	 >>> f = __import__("0-add_integer").add_integer.__doc__
+         >>> len(f) > 1
+         True
 
-First, we test whether the function successfully adds two integers
+Checking regular addition:
+	 >>> add_integer(2, 3)
+	 5
 
-     >>> add_integer(2, 3)
-     5
+Checking positive with negative:
+	 >>> add_integer(2, -4)
+	 -2
 
-Next, we check if it casts a float into an int before addition
+Checking negative with positive:
+	 >>> add_integer(-6, 8)
+	 2
 
-     >>> add_integer(2.32, 3)
-     5
+Checking addition over multiple values:
+	 >>> [add_integer(i, i ** 2) for i in range(6)]
+	 [0, 2, 6, 12, 20, 30]
 
-Next, we check if it raises an exception if a non-integer is passed to the function
+Checking float with int:
+	 >>> add_integer(2.1, 4)
+	 6
 
-     >>> add_integer('school', 3)
-     Traceback (most recent call last):
-     TypeError: a must be an integer
+Checking int with float:
+	 >>> add_integer(5, 7.8)
+	 12
 
-When only one operand is provided, the addition is successfull since the second operand was initialized to 98
-     >>> add_integer(2)
-     100
+Checking both float:
+	 >>> add_integer(2.45, 3.1)
+	 5
 
-The function successfully adds when the first operand is negative
+Checking for passed NaN:
+	 >>> add_integer(1, float('nan'))
+	 Traceback (most recent call last):
+	 ...
+	 ValueError: cannot convert float NaN to integer
 
-    >>> add_integer(-3, 5)
-    2
+Checking for passed inf:
+	 >>> add_integer(1, float('inf'))
+	 Traceback (most recent call last):
+	 ...
+	 OverflowError: cannot convert float infinity to integer
 
-When the second operand is negative, the addition is successfull
+Checking super long int:
+	 >>> add_integer(999999999999999999999999999999, 1)
+	 1000000000000000000000000000000
 
-     >>> add_integer(3, -5)
-     -2
+Checking non-number with number:
+	 >>> add_integer([1], 2)
+	 Traceback (most recent call last):
+	 ...
+	 TypeError: a must be an integer
 
-The function raises an error if a no argument is passed
+Checking number with non-number:
+	 >>> add_integer(3, "2")
+	 Traceback (most recent call last):
+	 ...
+	 TypeError: b must be an integer
 
-     >>> add_integer()
-     Traceback (most recent call last):
-     TypeError: add_integer() missing 1 required positional argument: 'a'
+Checking non-number with non-number:
+	 >>> add_integer((2,), {"key": "value"})
+         Traceback (most recent call last):
+         ...
+         TypeError: a must be an integer
 
-An error is also raised if one of the arguments is infinity
+Checking bool with number:
+	 >>> add_integer(True, 1)
+	 Traceback (most recent call last):
+         ...
+         TypeError: a must be an integer
 
-   >>> add_integer(2, 'inf')
-   Traceback (most recent call last):
-   TypeError: b must be an integer
+Checking number with bool:
+	 >>> add_integer(0, False)
+         Traceback (most recent call last):
+         ...
+         TypeError: b must be an integer
 
-An error is raised if one of the arguments is None
+Checking no args:
+	 >>> add_integer()
+	 Traceback (most recent call last):
+	 ...
+	 TypeError: add_integer() missing 2 required positional arguments: 'a' and 'b'
 
-   >>> add_integer(2, None)
-   Traceback (most recent call last):
-   TypeError: b must be an integer
+Checking one arg:
+	 >>> add_integer(1)
+	 Traceback (most recent call last):
+         ...
+	 TypeError: add_integer() missing 1 required positional argument: 'b'
 
-
-
-Finally, we check whether it raises an exception if a complex number is passed to the function
-
-     >>> add_integer(3, 4+8j)
-     Traceback (most recent call last):
-     TypeError: b must be an integer
+Checking more than 2 args:
+	 >>> add_integer(1, 2, 3)
+         Traceback (most recent call last):
+         ...
+         TypeError: add_integer() takes 2 positional arguments but 3 were given
