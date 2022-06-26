@@ -1,0 +1,67 @@
+The ``0-add_integer`` module
+============================
+
+Using ``add_integer``
+---------------------
+
+This is a test-suite for the ``0-add_integer`` module to test various edge cases of the ``add_integer`` function.
+
+We'll import the required module:
+
+      >>> add_integer = __import__('0-add_integer').add_integer
+
+First, we test whether the function successfully adds two integers
+
+     >>> add_integer(2, 3)
+     5
+
+Next, we check if it casts a float into an int before addition
+
+     >>> add_integer(2.32, 3)
+     5
+
+Next, we check if it raises an exception if a non-integer is passed to the function
+
+     >>> add_integer('school', 3)
+     Traceback (most recent call last):
+     TypeError: a must be an integer
+
+When only one operand is provided, the addition is successfull since the second operand was initialized to 98
+     >>> add_integer(2)
+     100
+
+The function successfully adds when the first operand is negative
+
+    >>> add_integer(-3, 5)
+    2
+
+When the second operand is negative, the addition is successfull
+
+     >>> add_integer(3, -5)
+     -2
+
+The function raises an error if a no argument is passed
+
+     >>> add_integer()
+     Traceback (most recent call last):
+     TypeError: add_integer() missing 1 required positional argument: 'a'
+
+An error is also raised if one of the arguments is infinity
+
+   >>> add_integer(2, 'inf')
+   Traceback (most recent call last):
+   TypeError: b must be an integer
+
+An error is raised if one of the arguments is None
+
+   >>> add_integer(2, None)
+   Traceback (most recent call last):
+   TypeError: b must be an integer
+
+
+
+Finally, we check whether it raises an exception if a complex number is passed to the function
+
+     >>> add_integer(3, 4+8j)
+     Traceback (most recent call last):
+     TypeError: b must be an integer
