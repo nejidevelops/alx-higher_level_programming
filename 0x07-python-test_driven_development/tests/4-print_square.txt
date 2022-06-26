@@ -1,0 +1,76 @@
+=========================
+Module ``4-print_sqaure``
+=========================
+
+--------------------------------------------------------
+Using the function ``print_square``
+
+Usage: print_square(size)
+
+- size must be an integer and greater than or equal to 0
+--------------------------------------------------------
+
+======
+First, the module is imported
+       >>> print_square = __import__('4-print_square').print_square
+
+======
+The correct output is displayed when an integer is passed to the function
+    >>> print_square(2)
+    ##
+    ##
+
+======
+Again when an integer is passed to the function
+      >>> print_square(4)
+      ####
+      ####
+      ####
+      ####
+
+Again when a larger integer is passed
+      >>> print_square(10)
+      ##########
+      ##########
+      ##########
+      ##########
+      ##########
+      ##########
+      ##########
+      ##########
+      ##########
+      ##########
+
+======
+When 0 is passed, nothing should be printed
+     >>> print_square(0)
+
+
+======
+When one is passed, one character is printed
+     >>> print_square(1)
+     #
+
+======
+When size is less than zero, a ValueError exception should be raised
+     >>> print_square(-1)
+     Traceback (most recent call last):
+     ValueError: size must be >= 0
+
+======
+If size is a float less than 0, a TypeError exception should be raised
+   >>> print_square(-1.23)
+   Traceback (most recent call last):
+   TypeError: size must be an integer
+
+======
+If size is a float greater than 0, a TypeError exception is raised
+   >>> print_square(1.23)
+   Traceback (most recent call last):
+   TypeError: size must be an integer
+
+======
+If no argument is passed to the function, an exception error is raised:
+   >>> print_square()
+   Traceback (most recent call last):
+   TypeError: print_square() missing 1 required positional argument: 'size'
