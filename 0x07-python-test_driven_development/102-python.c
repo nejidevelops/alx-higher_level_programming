@@ -1,28 +1,43 @@
 #include "Python.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 /**
- * print_python_string - Prints information about Python strings.
- * @p: A PyObject string object.
+ * print_python_string - prints information about a python string
+ * @p: pointer to the string object, checks to see it is string
  */
 void print_python_string(PyObject *p)
 {
-	long int length;
-
-	fflush(stdout);
+	char *unicode = "compact unicode object";
+	char *ascii = "compact ascii";
+	char *str = NULL, *encoding = NULL;
+	ssize_t len = 0;
+	int i;
+	PyObject *str_ob = NULL;
 
 	printf("[.] string object info\n");
-	if (strcmp(p->ob_type->tp_name, "str") != 0)
+	if (!PyUnicode_Check(p))
 	{
 		printf("  [ERROR] Invalid String Object\n");
 		return;
 	}
 
-	length = ((PyASCIIObject *)(p))->length;
+	len = (ssize_t)PyUnicode_GET_LENGTH(p);
 
-	if (PyUnicode_IS_COMPACT_ASCII(p))
-		printf("  type: compact ascii\n");
-	else
-		printf("  type: compact unicode object\n");
-	printf("  length: %ld\n", length);
-	printf("  value: %ls\n", PyUnicode_AsWideCharString(p, &length));
+	str_ob = PyUnicode_AsUTF8String(p);
+	str = PyBytes_AsString(str_ob);
+
+	for (i = 0; i < len; i++)
+	{
+		if (str[i] < 0)
+		{
+			encoding = unicode;
+			break;
+		}
+	}
+	if (encoding == NULL)
+		encoding = ascii;
+	printf("  type: %s\n", encoding);
+	printf("  length: %ld\n", len);
+	printf("  value: %s\n", str);
 }

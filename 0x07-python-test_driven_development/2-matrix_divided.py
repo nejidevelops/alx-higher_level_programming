@@ -1,32 +1,30 @@
 #!/usr/bin/python3
 """
-Task 1 - matrix_divided(matrix, div):
+This is the "2-matrix_divided" module.
+The 2-matrix_divided module supplies one function, matrix_divided(matrix, div).
 """
 
 
 def matrix_divided(matrix, div):
-    """function that divide all the values of the matrix"""
-    err_msg = "matrix must be a matrix (list of lists) of integers/floats"
-    if matrix is None or len(matrix) == 0 or len(matrix[0]) == 0:
-        raise TypeError(err_msg)
-    """if len(matrix[0]) != len(matrix[1]):
-        raise TypeError("Each row of the matrix must have the same size")
-    """
-    if type(div) != int and type(div) != float:
+    """Divides all elements in the matrix by div"""
+    if type(matrix) is not list:
+        raise TypeError(
+            "matrix must be a matrix (list of lists) of integers/floats")
+    size = None
+    for l in matrix:
+        if type(l) is not list:
+            raise TypeError(
+                "matrix must be a matrix (list of lists) of integers/floats")
+        if size is None:
+            size = len(l)
+        elif size != len(l):
+            raise TypeError("Each row of the matrix must have the same size")
+        for i in l:
+            if type(i) is not int and type(i) is not float:
+                raise TypeError("matrix must be a matrix (list of lists) of \
+integers/floats")
+    if type(div) is not int and type(div) is not float:
         raise TypeError("div must be a number")
     if div == 0:
         raise ZeroDivisionError("division by zero")
-
-    results_matrix = []
-    for listas in matrix:
-        if type(listas) != list:
-            raise TypeError(err_msg)
-        if len(listas) != len(matrix[0]):
-            raise TypeError("Each row of the matrix must have the same size")
-        c_resList = []
-        for valor in listas:
-            if type(valor) != int and type(valor) != float:
-                raise TypeError(err_msg)
-            c_resList.append(round(valor/div, 2))
-        results_matrix.append(c_resList)
-    return results_matrix
+    return [[round(i / div, 2) for i in l] for l in matrix]
