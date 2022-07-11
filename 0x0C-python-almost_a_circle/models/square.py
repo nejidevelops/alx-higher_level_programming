@@ -1,53 +1,46 @@
 #!/usr/bin/python3
-"""Creating a square class"""
+""" Module Square """
 from models.rectangle import Rectangle
 
 
 class Square(Rectangle):
-    """Defining square class"""
-    def __init__(self, size, x=0, y=0, id=None):
-        """Initializing square class"""
-        super().__init__(size, size, x, y, id)
+    """ class Square """
 
-    def __str__(self):
-        """Printing square class by overloading __str__ method"""
-        return "[Square] ({}) {}/{} - {}".format(self.id, self.x, self.y,
-                                                 self.width)
+    def __init__(self, size, x=0, y=0, id=None):
+        """ Object Builder """
+        super().__init__(size, size, x, y, id)
 
     @property
     def size(self):
-        """Getting size of square"""
+        """ size getter """
         return self.width
 
     @size.setter
-    def size(self, value):
-        """Setting size of square"""
-        self.width = value
-        self.height = value
+    def size(self, size):
+        """ size setter """
+        self.width = size
+        self.height = size
+
+    def __str__(self):
+        """ str repr """
+        return ("[Square] ({}) {}/{} - {}"
+                .format(self.id, self.x, self.y, super().width))
 
     def update(self, *args, **kwargs):
-        """Updating square class"""
+        """ Assigns attr  """
+        attr = {0: "id", 1: "size", 2: "x", 3: "y"}
         if args:
-            for i, arg in enumerate(args):
-                if i == 0:
-                    self.id = arg
-                elif i == 1:
-                    self.size = arg
-                elif i == 2:
-                    self.x = arg
-                elif i == 3:
-                    self.y = arg
+            if len(args) < 5:
+                for i in range(len(args)):
+                    setattr(self, attr[i], args[i])
         else:
-            for key, value in kwargs.items():
-                if key == "id":
-                    self.id = value
-                elif key == "size":
-                    self.size = value
-                elif key == "x":
-                    self.x = value
-                elif key == "y":
-                    self.y = value
+            for k in kwargs:
+                setattr(self, k, kwargs[k])
 
     def to_dictionary(self):
-        """Returning dictionary representation of square"""
-        return {'id': self.id, 'size': self.size, 'x': self.x, 'y': self.y}
+        """ Instance to dictionary """
+        obj_dict = {"id": self.id,
+                    "size": self.size,
+                    "x": self.x,
+                    "y": self.y}
+        return obj_dict

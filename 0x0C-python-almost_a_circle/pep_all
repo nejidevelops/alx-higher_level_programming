@@ -1,0 +1,5 @@
+#!/bin/bash
+pycodestyle *.py
+pycodestyle models/*.py
+pycodestyle tests/*.py
+pycodestyle tests/test_models/*.py
