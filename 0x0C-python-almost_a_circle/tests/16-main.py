@@ -13,3 +13,4 @@ if __name__ == "__main__":
     print("[{}] {}".format(type(list_input), list_input))
     print("[{}] {}".format(type(json_list_input), json_list_input))
     print("[{}] {}".format(type(list_output), list_output))
+
