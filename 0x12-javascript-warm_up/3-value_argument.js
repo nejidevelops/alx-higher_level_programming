@@ -1,5 +1,4 @@
 #!/usr/bin/node
-
 let argsLen = 0;
 process.argv.forEach((element) => { argsLen++; });
 if (argsLen === 2) {
