@@ -1,1 +1,1 @@
-Starting JavaScript
+JAVASCRIPT WARM UP
